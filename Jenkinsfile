@@ -32,12 +32,12 @@ pipeline {
                 script {
                     sh """
                     mkdir -p ${TRUFFLE_HUG_DIR}/src 
-                    cd ${TRUFFLE_HUG_DIR}/src
                     #apt update
                     apt install wget
-                    wget https://github.com/trufflesecurity/trufflehog/releases/download/v3.42.0/trufflehog_3.42.0_linux_amd64.tar.gz
-                    tar xfz trufflehog_3.42.0_linux_amd64.tar.gz
-                    mv trufflehug ${TRUFFLE_HUG_DIR}
+                    cd ${TRUFFLE_HUG_DIR}/src && \
+                        wget https://github.com/trufflesecurity/trufflehog/releases/download/v3.42.0/trufflehog_3.42.0_linux_amd64.tar.gz && \
+                        tar xfz trufflehog_3.42.0_linux_amd64.tar.gz
+                    mv ${TRUFFLE_HUG_DIR}/src/trufflehug ${TRUFFLE_HUG_DIR}
                     """
                 }
             }
