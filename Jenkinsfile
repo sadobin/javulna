@@ -23,6 +23,14 @@ pipeline {
             }
         }
 
+        stage('run TruffleHug on source code') {
+            script {
+                sh "mkdir /tmp/trufflehug" 
+                sh "cd /tmp/trufflehug"
+                sh "wget https://github.com/trufflesecurity/trufflehog/releases/download/v3.42.0/trufflehog_3.42.0_linux_amd64.tar.gz"
+            }
+        }
+        
         stage('package the app') {
             steps {
                 sh "mvn clean package"
