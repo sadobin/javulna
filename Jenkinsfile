@@ -1,8 +1,6 @@
 pipeline {
 
-    agent {
-        docker { image 'maven:latest' }
-    }
+    agent any
 
     tools {
         jdk 'Java17'
