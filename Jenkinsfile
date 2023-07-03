@@ -6,6 +6,10 @@ pipeline {
         jdk 'Java17'
         maven 'Maven3'
     }
+
+    environment {
+        TRUFFLE_HUG_DIR = '/tmp/trufflehug'
+    }
     
     stages {
         
@@ -25,8 +29,8 @@ pipeline {
 
         stage('run TruffleHug on source code') {
             script {
-                sh "mkdir /tmp/trufflehug" 
-                sh "cd /tmp/trufflehug"
+                sh "mkdir ${TRUFFLE_HUG_DIR}" 
+                sh "cd ${TRUFFLE_HUG_DIR}"
                 sh "wget https://github.com/trufflesecurity/trufflehog/releases/download/v3.42.0/trufflehog_3.42.0_linux_amd64.tar.gz"
             }
         }
