@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('run TruffleHug on source code') {
+        stage('installing TruffleHug on source code') {
             steps {
                 script {
                     sh """
@@ -38,6 +38,7 @@ pipeline {
                         wget https://github.com/trufflesecurity/trufflehog/releases/download/v3.42.0/trufflehog_3.42.0_linux_amd64.tar.gz && \
                         tar xfz trufflehog_3.42.0_linux_amd64.tar.gz
                     mv ${TRUFFLE_HUG_DIR}/src/trufflehug ${TRUFFLE_HUG_DIR}
+                    ./${TRUFFLE_HUG_DIR}/trufflehug -h
                     """
                 }
             }
