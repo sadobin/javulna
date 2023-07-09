@@ -1,6 +1,8 @@
 pipeline {
 
-    agent any
+    agent {
+        docker { image "ubuntu" }       
+    }
 
     tools {
         jdk 'Java17'
