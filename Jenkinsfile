@@ -31,7 +31,7 @@ pipeline {
 
         stage('Run TruffleHug on source code') {
             steps {
-                sh 'docker pull $TRUFFLE_HUG_IMAGE'
+                #sh 'docker pull $TRUFFLE_HUG_IMAGE'
                 sh 'docker run -it --rm $TRUFFLE_HUG_IMAGE github repo=$REPO_URL --json | sed -E "s/\\}$/\\},/g" | tr -d "\\n" | sed -E "s/,$//g" | sed -E  "s/\\{.*\\}/\\[&\\]/" | jq'
             }
         }
