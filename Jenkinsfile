@@ -34,7 +34,7 @@ pipeline {
             steps {
                 // sh 'docker pull $TRUFFLE_HUG_IMAGE'
                 sh ''' 
-                    docker run -i --rm $TRUFFLE_HUG_IMAGE github repo=$REPO_URL --json | \ 
+                    docker run -i --rm $TRUFFLE_HUG_IMAGE github repo=$REPO_URL --json | \\ 
                         sed -E "s/\\}$/\\},/g" | tr -d "\\n" | sed -E "s/,$//g" | sed -E  "s/\\{.*\\}/\\[&\\]/" | jq | tee -a /tmp/trufflehug_$NAME.json
                 '''
             }
