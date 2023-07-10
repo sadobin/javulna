@@ -25,7 +25,7 @@ pipeline {
             steps {
                 git branch: 'master',
                     credentialsId: 'javulna-pat',
-                    url: $REPO_URL
+                    url: "$REPO_URL"
             }
         }
 
