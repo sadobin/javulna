@@ -10,7 +10,7 @@ pipeline {
     environment {
         TRUFFLE_HUG_DIR = '/tmp/trufflehug'
         TRUFFLE_HUG_IMAGE = 'trufflesecurity/trufflehug:latest'
-        REPO_URL: = 'https://github.com/sadobin/javulna.git'
+        REPO_URL = 'https://github.com/sadobin/javulna.git'
     }
     
     stages {
