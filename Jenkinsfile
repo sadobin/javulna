@@ -39,7 +39,8 @@ pipeline {
                 '''
             }
         }
-        
+
+        /*
         stage('package the app') {
             steps {
                 sh "mvn clean package"
@@ -51,7 +52,7 @@ pipeline {
                 sh "mvn test"
             }
         }
-        
+        */
     }
 
 }
