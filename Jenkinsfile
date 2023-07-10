@@ -35,7 +35,7 @@ pipeline {
                 // sh 'docker pull $TRUFFLE_HOG_IMAGE'
                 sh ''' 
                     result=$(docker run -i --rm $TRUFFLE_HOG_IMAGE git $REPO_URL -j)
-                    echo $result | tr -d '\\r' | sed -E "s/\\}$/\\},/g" | tr -d "\\n" | sed -E "s/,$//g" | sed -E  "s/\\{.*\\}/\\[&\\]/" | jq | tee -a /tmp/trufflehog_$NAME.json
+                    echo $result | tr -d '\\r' | sed -E "s/\\}\\ \\{/\\}\\\\n\{/g" | sed -E "s/\\}$/\\},/g" | tr -d '\\n' | sed -E "s/,$//g" | sed -E  "s/\\{.*\\}/\\[&\\]/" | jq
                 '''
             }
         }
