@@ -1,8 +1,6 @@
 pipeline {
 
-    agent {
-        docker { image "ubuntu" }       
-    }
+    agent any
 
     tools {
         jdk 'Java17'
@@ -11,6 +9,8 @@ pipeline {
 
     environment {
         TRUFFLE_HUG_DIR = '/tmp/trufflehug'
+        TRUFFLE_HUG_IMAGE = 'trufflesecurity/trufflehug:latest'
+        REPO_URL: = 'https://github.com/sadobin/javulna.git'
     }
     
     stages {
@@ -25,24 +25,14 @@ pipeline {
             steps {
                 git branch: 'master',
                     credentialsId: 'javulna-pat',
-                    url: 'https://github.com/sadobin/javulna.git'
+                    url: $REPO_URL
             }
         }
 
-        stage('installing TruffleHug on source code') {
+        stage('Run TruffleHug on source code') {
             steps {
-                script {
-                    sh """
-                    mkdir -p ${TRUFFLE_HUG_DIR}/src 
-                    #apt update
-                    apt install wget
-                    cd ${TRUFFLE_HUG_DIR}/src && \
-                        wget https://github.com/trufflesecurity/trufflehog/releases/download/v3.42.0/trufflehog_3.42.0_linux_amd64.tar.gz && \
-                        tar xfz trufflehog_3.42.0_linux_amd64.tar.gz
-                    mv ${TRUFFLE_HUG_DIR}/src/trufflehug ${TRUFFLE_HUG_DIR}
-                    ./${TRUFFLE_HUG_DIR}/trufflehug -h
-                    """
-                }
+                sh 'docker pull $TRUFFLE_HUG_IMAGE'
+                sh 'docker run -it --rm $TRUFFLE_HUG_IMAGE github repo=$REPO_URL --json | sed -E "s/\}$/\},/g" | tr -d '\n' | sed -E "s/,$//g" | sed -E  "s/\{.*\}/\[&\]/" | jq'
             }
         }
         
