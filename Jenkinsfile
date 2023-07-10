@@ -9,8 +9,8 @@ pipeline {
 
     environment {
         NAME = 'javulna'
-        TRUFFLE_HUG_DIR = '/tmp/trufflehug'
-        TRUFFLE_HUG_IMAGE = 'trufflesecurity/trufflehug:latest'
+        TRUFFLE_HOG_DIR = '/tmp/trufflehog'
+        TRUFFLE_HOG_IMAGE = 'trufflesecurity/trufflehog:latest'
         REPO_URL = 'https://github.com/sadobin/javulna.git'
     }
     
@@ -30,12 +30,12 @@ pipeline {
             }
         }
 
-        stage('Run TruffleHug on source code') {
+        stage('Run TruffleHog on source code') {
             steps {
-                // sh 'docker pull $TRUFFLE_HUG_IMAGE'
+                // sh 'docker pull $TRUFFLE_HOG_IMAGE'
                 sh ''' 
-                    docker run -i --rm $TRUFFLE_HUG_IMAGE github repo=$REPO_URL --json | \\ 
-                        sed -E "s/\\}$/\\},/g" | tr -d "\\n" | sed -E "s/,$//g" | sed -E  "s/\\{.*\\}/\\[&\\]/" | jq | tee -a /tmp/trufflehug_$NAME.json
+                    docker run -i --rm $TRUFFLE_HOG_IMAGE github repo=$REPO_URL --json | \\ 
+                        sed -E "s/\\}$/\\},/g" | tr -d "\\n" | sed -E "s/,$//g" | sed -E  "s/\\{.*\\}/\\[&\\]/" | jq | tee -a /tmp/trufflehog_$NAME.json
                 '''
             }
         }
