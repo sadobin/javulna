@@ -25,7 +25,7 @@ pipeline {
         stage('checkout from SCM') {
             steps {
                 git branch: 'master',
-                    credentialsId: 'javulna-pat',
+                    // credentialsId: 'javulna-pat',
                     url: "$REPO_URL"
             }
         }
